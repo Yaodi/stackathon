@@ -1,15 +1,53 @@
 import Axios from 'axios';
-let headers = {
- 'User-Agent':
-  'Mozilla/5.0 (Windows NT 6.1; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/61.0.3163.100 Safari/537.36',
-};
+import React, { Component, Fragment } from 'react';
+import { render } from 'react-dom';
 
-let wrapper = async () => {
- let { data } = await Axios.get(
-  ' http://data.nba.net/prod/v1/20170201/0021600732_boxscore.json'
- );
- console.log('data', data);
-};
-wrapper();
+class root extends Component {
+ constructor() {
+  super();
+  this.state = { dayOffSet: 0 };
+  this.grabScores = this.grabScores.bind(this);
+ }
 
-export default () => <span>yea</span>;
+ async componentDidMount() {
+  let { data } = await Axios.get('http://localhost:8001/scoreboard', {
+   params: { GameDate: '01/16/2019', LeagueID: '00', DayOffset: '0' },
+  });
+  this.setState({ data });
+ }
+ grabScores() {
+  if (this.state.data) {
+   let [lineScore] = this.state.data.resultSets.filter(
+    thing => thing.name === 'LineScore'
+   );
+   console.log('count', lineScore);
+   return lineScore.rowSet.map((game, idx) => {
+    return (
+     <h1>
+      {!(idx % 2) && idx !== 0 ? <h1>break</h1> : null}
+      {game.map(el => (
+       <span>{el} </span>
+      ))}
+     </h1>
+    );
+   });
+  }
+ }
+
+ render() {
+  //   if (this.state.data) {
+  //    let [lineScore] = this.state.data.resultSets.filter(
+  //     thing => thing.name === 'LineScore'
+  //    );
+  //    console.log('linescore', this.state.data);
+  //   }
+  return (
+   <Fragment>
+    <h1>Today's scores</h1>
+    {this.grabScores()}
+   </Fragment>
+  );
+ }
+}
+
+export default root;

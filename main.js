@@ -3,6 +3,7 @@ const isDev = require('electron-is-dev');
 const { app, BrowserWindow } = require('electron');
 const prepareNext = require('electron-next');
 const path = require('path');
+const express = require('express');
 
 // Keep a global reference of the window object, if you don't, the window will
 // be closed automatically when the JavaScript object is garbage collected.
@@ -10,7 +11,8 @@ let mainWindow;
 
 function createWindow() {
  // Create the browser window.
- mainWindow = new BrowserWindow({ width: 800, height: 600 });
+ express();
+ mainWindow = new BrowserWindow({ width: 1280, height: 720 });
 
  // and load the index.html of the app.
  //  mainWindow.loadFile('index.html');
@@ -20,7 +22,7 @@ function createWindow() {
  mainWindow.loadURL(entry);
 
  // Open the DevTools.
- //  mainWindow.webContents.openDevTools();
+ mainWindow.webContents.openDevTools();
 
  // Emitted when the window is closed.
  mainWindow.on('closed', function() {
@@ -35,6 +37,14 @@ function createWindow() {
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
 app.on('ready', async () => {
+ //  let PORT = 8000;
+ //  let server = express();
+ //  server.listen(PORT, () => console.log(`server is set up on ${PORT}!`));
+
+ //  express().get('/start', (req, res, next) => {
+ //   res.json('SOMETHING');
+ //  });
+ //  express.listen()
  await prepareNext('./renderer');
  createWindow();
 });
