@@ -93,6 +93,62 @@ module.exports =
 /************************************************************************/
 /******/ ({
 
+/***/ "./pages/SingleGameBoxScore.js":
+/*!*************************************!*\
+  !*** ./pages/SingleGameBoxScore.js ***!
+  \*************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var SingleGameBoxScore =
+/*#__PURE__*/
+function (_Component) {
+  _inherits(SingleGameBoxScore, _Component);
+
+  function SingleGameBoxScore() {
+    _classCallCheck(this, SingleGameBoxScore);
+
+    return _possibleConstructorReturn(this, _getPrototypeOf(SingleGameBoxScore).apply(this, arguments));
+  }
+
+  _createClass(SingleGameBoxScore, [{
+    key: "render",
+    value: function render() {
+      return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "single");
+    }
+  }]);
+
+  return SingleGameBoxScore;
+}(react__WEBPACK_IMPORTED_MODULE_0__["Component"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (SingleGameBoxScore);
+
+/***/ }),
+
 /***/ "./pages/start.js":
 /*!************************!*\
   !*** ./pages/start.js ***!
@@ -110,7 +166,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "react-dom");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _utils_grabScores__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/grabScores */ "./utils/grabScores.js");
+/* harmony import */ var _SingleGameBoxScore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SingleGameBoxScore */ "./pages/SingleGameBoxScore.js");
+/* harmony import */ var _utils_grabScores__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/grabScores */ "./utils/grabScores.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -141,6 +198,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var root =
 /*#__PURE__*/
 function (_Component) {
@@ -155,7 +213,7 @@ function (_Component) {
     _this.state = {
       dayOffSet: -1,
       date: new Date().toLocaleDateString(),
-      headers: {
+      preferences: {
         GAME_DATE_EST: false,
         GAME_SEQUENCE: false,
         GAME_ID: false,
@@ -185,8 +243,7 @@ function (_Component) {
         REB: false,
         TOV: false
       }
-    }; //   this.grabScores = this.grabScores.bind(this);
-
+    };
     return _this;
   }
 
@@ -231,45 +288,21 @@ function (_Component) {
       }
 
       return componentDidMount;
-    }() //  grabScores() {
-    //   if (this.state.data) {
-    //    let [lineScore] = this.state.data.resultSets.filter(
-    //     resultSet => resultSet.name === 'LineScore'
-    //    );
-    //    console.log('count', lineScore);
-    //    return lineScore.rowSet.map((game, idx) => {
-    //     return (
-    //      <h1>
-    //       {!(idx % 2) && idx !== 0 ? <p>-------------------</p> : null}
-    //       {game
-    //        .filter((none, index) => {
-    //         return this.state.headers[lineScore.headers[index]];
-    //        })
-    //        .map((field, j) => {
-    //         return (
-    //          <span>
-    //           {/* grabs corresponding header field */}
-    //           {/* {lineScore.headers.filter(el => this.state.headers[el])[j]} */}
-    //           {field}{' '}
-    //          </span>
-    //         );
-    //        })}
-    //      </h1>
-    //     );
-    //    });
-    //   }
-    //  }
-
+    }()
   }, {
     key: "render",
     value: function render() {
-      //   if (this.state.data) {
-      //    let [lineScore] = this.state.data.resultSets.filter(
-      //     thing => thing.name === 'LineScore'
-      //    );
-      //    console.log('linescore', this.state.data);
-      //   }
-      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "Today's scores"), Object(_utils_grabScores__WEBPACK_IMPORTED_MODULE_4__["default"])());
+      console.log('pls', this.state.data);
+
+      if (this.state.data) {
+        console.log('if?');
+        var data = this.state.data;
+        var preferences = this.state.preferences;
+        var games = Object(_utils_grabScores__WEBPACK_IMPORTED_MODULE_5__["default"])(data, preferences);
+        console.log('gotback', games);
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "Today's scores"));
     }
   }]);
 
@@ -289,35 +322,85 @@ function (_Component) {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return grabScores; });
-function grabScores() {
-  console.log('this', this); //  if (this.state.data) {
-  //   let [lineScore] = this.state.data.resultSets.filter(
-  //    resultSet => resultSet.name === 'LineScore'
-  //   );
-  //   console.log('count', lineScore);
-  //   return lineScore.rowSet.map((game, idx) => {
-  //    return (
-  //     <h1>
-  //      {!(idx % 2) && idx !== 0 ? <p>-------------------</p> : null}
-  //      {game
-  //       .filter((none, index) => {
-  //        return this.state.headers[lineScore.headers[index]];
-  //       })
-  //       .map((field, j) => {
-  //        return (
-  //         <span>
-  //          {/* grabs corresponding header field */}
-  //          {/* {lineScore.headers.filter(el => this.state.headers[el])[j]} */}
-  //          {field}{' '}
-  //         </span>
-  //        );
-  //       })}
-  //     </h1>
-  //    );
-  //   });
-  //  }
-}
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return filter; });
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//filter scoreboard endpoint into games array with filtered out categories
+function filter(data, preferences) {
+  var _data$resultSets$filt = data.resultSets.filter(function (resultSet) {
+    return resultSet.name === 'LineScore';
+  }),
+      _data$resultSets$filt2 = _slicedToArray(_data$resultSets$filt, 1),
+      lineScore = _data$resultSets$filt2[0];
+} //  let games = [];
+//  for (let i = 0; i < lineScore.rowSet.length; i++) {
+//   let game = {};
+//   for (let j = 0; i < lineScore.headers.length; j++) {
+//    console.log('????', lineScore.headers.length);
+//    //    let header = lineScore.headers[j];
+//    //    if (preferences[header]) {
+//    //     game[header] = lineScore.headers[i];
+//    //    }
+//   }
+//   games.push(game);
+//  }
+//  return games;
+//  grabScores() {
+//   if (this.state.data) {
+//    let [lineScore] = this.state.data.resultSets.filter(
+//     resultSet => resultSet.name === 'LineScore'
+//    );
+//    console.log('count', lineScore);
+//    return lineScore.rowSet.map((game, idx) => {
+//     return (
+//      <h1>
+//       {!(idx % 2) && idx !== 0 ? <p>-------------------</p> : null}
+//       {game
+//        .filter((none, index) => {
+//         return this.state.headers[lineScore.headers[index]];
+//        })
+//        .map((field, j) => {
+//         return (
+//          <span>
+//           {/* grabs corresponding header field */}
+//           {/* {lineScore.headers.filter(el => this.state.headers[el])[j]} */}
+//           {field}{' '}
+//          </span>
+//         );
+//        })}
+//      </h1>
+//     );
+//    });
+//   }
+//  }
+//}
+//  return lineScore.rowSet.map((game, idx) => {
+//   return (
+//    <h1>
+//     {!(idx % 2) && idx !== 0 ? <p>-------------------</p> : null}
+//     {game
+//      .filter((none, index) => {
+//       return this.state.headers[lineScore.headers[index]];
+//      })
+//      .map((field, j) => {
+//       return (
+//        <span>
+//         {/* grabs corresponding header field */}
+//         {/* {lineScore.headers.filter(el => this.state.headers[el])[j]} */}
+//         {field}{' '}
+//        </span>
+//       );
+//      })}
+//    </h1>
+//   );
+//  });
+// }
 
 /***/ }),
 

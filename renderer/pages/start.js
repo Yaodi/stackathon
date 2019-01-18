@@ -2,7 +2,8 @@
 import Axios from 'axios';
 import React, { Component, Fragment } from 'react';
 import { render } from 'react-dom';
-import grabScores from '../utils/grabScores';
+import SingleGameBoxScore from './SingleGameBoxScore';
+import filter from '../utils/grabScores';
 
 class root extends Component {
  constructor() {
@@ -10,7 +11,7 @@ class root extends Component {
   this.state = {
    dayOffSet: -1,
    date: new Date().toLocaleDateString(),
-   headers: {
+   preferences: {
     GAME_DATE_EST: false,
     GAME_SEQUENCE: false,
     GAME_ID: false,
@@ -41,7 +42,6 @@ class root extends Component {
     TOV: false,
    },
   };
-  //   this.grabScores = this.grabScores.bind(this);
  }
 
  async componentDidMount() {
@@ -54,46 +54,21 @@ class root extends Component {
   });
   this.setState({ data });
  }
- //  grabScores() {
- //   if (this.state.data) {
- //    let [lineScore] = this.state.data.resultSets.filter(
- //     resultSet => resultSet.name === 'LineScore'
- //    );
- //    console.log('count', lineScore);
- //    return lineScore.rowSet.map((game, idx) => {
- //     return (
- //      <h1>
- //       {!(idx % 2) && idx !== 0 ? <p>-------------------</p> : null}
- //       {game
- //        .filter((none, index) => {
- //         return this.state.headers[lineScore.headers[index]];
- //        })
- //        .map((field, j) => {
- //         return (
- //          <span>
- //           {/* grabs corresponding header field */}
- //           {/* {lineScore.headers.filter(el => this.state.headers[el])[j]} */}
- //           {field}{' '}
- //          </span>
- //         );
- //        })}
- //      </h1>
- //     );
- //    });
- //   }
- //  }
 
  render() {
-  //   if (this.state.data) {
-  //    let [lineScore] = this.state.data.resultSets.filter(
-  //     thing => thing.name === 'LineScore'
-  //    );
-  //    console.log('linescore', this.state.data);
-  //   }
+  console.log('pls', this.state.data);
+  if (this.state.data) {
+   console.log('if?');
+   let data = this.state.data;
+   let preferences = this.state.preferences;
+   let games = filter(data, preferences);
+   console.log('gotback', games);
+  }
   return (
    <Fragment>
     <h1>Today's scores</h1>
-    {grabScores()}
+    {/* {this.grabScores()} */}
+    {/* <SingleGameBoxScore /> */}
    </Fragment>
   );
  }
