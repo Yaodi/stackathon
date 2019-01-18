@@ -2604,7 +2604,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "../node_modules/react-dom/index.js");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _SingleGameBoxScore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SingleGameBoxScore */ "./pages/SingleGameBoxScore.js");
-/* harmony import */ var _utils_grabScores__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/grabScores */ "./utils/grabScores.js");
+/* harmony import */ var _utils_filterAllGames__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/filterAllGames */ "./utils/filterAllGames.js");
+/* harmony import */ var _utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/filterSingleGame */ "./utils/filterSingleGame.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -2636,6 +2637,7 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 
 
+
 var root =
 /*#__PURE__*/
 function (_Component) {
@@ -2658,10 +2660,10 @@ function (_Component) {
         TEAM_ABBREVIATION: true,
         TEAM_CITY_NAME: false,
         TEAM_WINS_LOSSES: false,
-        PTS_QTR1: true,
-        PTS_QTR2: true,
-        PTS_QTR3: true,
-        PTS_QTR4: true,
+        PTS_QTR1: false,
+        PTS_QTR2: false,
+        PTS_QTR3: false,
+        PTS_QTR4: false,
         PTS_OT1: false,
         PTS_OT2: false,
         PTS_OT3: false,
@@ -2727,19 +2729,78 @@ function (_Component) {
       return componentDidMount;
     }()
   }, {
-    key: "render",
-    value: function render() {
-      console.log('pls', this.state.data);
+    key: "handleDayChange",
+    value: function () {
+      var _handleDayChange = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
+        var change, _ref2, data;
 
-      if (this.state.data) {
-        console.log('if?');
-        var data = this.state.data;
-        var preferences = this.state.preferences;
-        var games = Object(_utils_grabScores__WEBPACK_IMPORTED_MODULE_5__["default"])(data, preferences);
-        console.log('gotback', games);
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                change = parseInt(e.target.value, 10);
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8001/scoreboard', {
+                  params: {
+                    GameDate: this.state.date,
+                    LeagueID: '00',
+                    DayOffset: this.state.dayOffSet + change
+                  }
+                });
+
+              case 3:
+                _ref2 = _context2.sent;
+                data = _ref2.data;
+                this.setState({
+                  data: data,
+                  dayOffSet: this.state.dayOffSet + change
+                });
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function handleDayChange(_x) {
+        return _handleDayChange.apply(this, arguments);
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "Today's scores"));
+      return handleDayChange;
+    }()
+  }, {
+    key: "render",
+    value: function render() {
+      var _this2 = this;
+
+      //   console.log('day offset', this.state.dayOffSet);
+      var games = [];
+
+      if (this.state.data) {
+        var data = this.state.data;
+        var preferences = this.state.preferences;
+        games = Object(_utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_6__["default"])(data, preferences);
+      }
+
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, " scores "), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+        type: "button",
+        value: "-1",
+        onClick: function onClick() {
+          return _this2.handleDayChange(event);
+        }
+      }, "yesterday"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+        type: "button",
+        value: "1",
+        onClick: function onClick() {
+          return _this2.handleDayChange(event);
+        }
+      }, "tomorrow")), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null), games.map(function (game) {
+        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, game.team1.TEAM_ABBREVIATION, ": ", game.team1.PTS || 'tbd'), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, game.team2.TEAM_ABBREVIATION, ":", game.team2.PTS || 'tbd'), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null));
+      }));
     }
   }]);
 
@@ -2769,10 +2830,10 @@ function (_Component) {
 
 /***/ }),
 
-/***/ "./utils/grabScores.js":
-/*!*****************************!*\
-  !*** ./utils/grabScores.js ***!
-  \*****************************/
+/***/ "./utils/filterAllGames.js":
+/*!*********************************!*\
+  !*** ./utils/filterAllGames.js ***!
+  \*********************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -2786,6 +2847,64 @@ function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = 
 
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
+//this utility function takes in scores data, returning an array of games w/ team abbreviation and final score for the all games page
+/* harmony default export */ __webpack_exports__["default"] = (function (data) {
+  var _data$resultSets$filt = data.resultSets.filter(function (el) {
+    return el.name === 'LineScore';
+  }),
+      _data$resultSets$filt2 = _slicedToArray(_data$resultSets$filt, 1),
+      lineScore = _data$resultSets$filt2[0];
+
+  var list = [];
+
+  for (var i = 0; i < lineScore.rowSet.length; i++) {
+    var _game = {};
+
+    for (var j = 0; j < lineScore.headers.length; j++) {
+      var header = lineScore.headers[j];
+      var field = lineScore.rowSet[i][j];
+      if (header === 'TEAM_ABBREVIATION' || header === 'PTS') _game[header] = field;
+    }
+
+    list.push(_game);
+  }
+
+  var games = [];
+  var game = {};
+
+  for (var _i2 = 0; _i2 < list.length; _i2++) {
+    if (_i2 % 2) {
+      game.team2 = list[_i2];
+      games.push(game);
+      game = {};
+    } else {
+      game.team1 = list[_i2];
+    }
+  }
+
+  return games;
+});
+
+/***/ }),
+
+/***/ "./utils/filterSingleGame.js":
+/*!***********************************!*\
+  !*** ./utils/filterSingleGame.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
+
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
+
+function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+//this utility function takes in scores data and user preferences, returning an array of games w/ each team and the respective categories for single game page
 /* harmony default export */ __webpack_exports__["default"] = (function (data, preferences) {
   var _data$resultSets$filt = data.resultSets.filter(function (el) {
     return el.name === 'LineScore';
@@ -2793,19 +2912,31 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       _data$resultSets$filt2 = _slicedToArray(_data$resultSets$filt, 1),
       lineScore = _data$resultSets$filt2[0];
 
-  var games = [];
+  var list = [];
 
   for (var i = 0; i < lineScore.rowSet.length; i++) {
-    var game = {};
+    var _game = {};
 
     for (var j = 0; j < lineScore.headers.length; j++) {
       var header = lineScore.headers[j];
       var field = lineScore.rowSet[i][j];
-      console.log('util nested', header, field);
-      if (preferences[header]) game[header] = field;
+      if (preferences[header]) _game[header] = field;
     }
 
-    games.push(game);
+    list.push(_game);
+  }
+
+  var games = [];
+  var game = {};
+
+  for (var _i2 = 0; _i2 < list.length; _i2++) {
+    if (_i2 % 2) {
+      game.team2 = list[_i2];
+      games.push(game);
+      game = {};
+    } else {
+      game.team1 = list[_i2];
+    }
   }
 
   return games;

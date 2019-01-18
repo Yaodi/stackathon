@@ -17,7 +17,7 @@ let PORT = 8001;
 // app.set('views', __dirname + '/client/views');
 // app.use(express.static(__dirname + '/client/dist/static'));
 app.get('/scoreboard', async (req, res, next) => {
- console.log(req.query);
+ console.log('query', req.query);
  let { data } = await Axios.get('https://stats.nba.com/stats/scoreboard/', {
   params: req.query,
  });

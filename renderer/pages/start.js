@@ -3,7 +3,8 @@ import Axios from 'axios';
 import React, { Component, Fragment } from 'react';
 import { render } from 'react-dom';
 import SingleGameBoxScore from './SingleGameBoxScore';
-import filter from '../utils/grabScores';
+import filterAllGames from '../utils/filterAllGames';
+import filterSingleGame from '../utils/filterSingleGame';
 
 class root extends Component {
  constructor() {
@@ -19,10 +20,10 @@ class root extends Component {
     TEAM_ABBREVIATION: true,
     TEAM_CITY_NAME: false,
     TEAM_WINS_LOSSES: false,
-    PTS_QTR1: true,
-    PTS_QTR2: true,
-    PTS_QTR3: true,
-    PTS_QTR4: true,
+    PTS_QTR1: false,
+    PTS_QTR2: false,
+    PTS_QTR3: false,
+    PTS_QTR4: false,
     PTS_OT1: false,
     PTS_OT2: false,
     PTS_OT3: false,
@@ -54,21 +55,59 @@ class root extends Component {
   });
   this.setState({ data });
  }
+ async handleDayChange(e) {
+  let change = parseInt(e.target.value, 10);
+  let { data } = await Axios.get('http://localhost:8001/scoreboard', {
+   params: {
+    GameDate: this.state.date,
+    LeagueID: '00',
+    DayOffset: this.state.dayOffSet + change,
+   },
+  });
+  this.setState({ data, dayOffSet: this.state.dayOffSet + change });
+ }
 
  render() {
-  console.log('pls', this.state.data);
+  //   console.log('day offset', this.state.dayOffSet);
+  let games = [];
   if (this.state.data) {
-   console.log('if?');
    let data = this.state.data;
    let preferences = this.state.preferences;
-   let games = filter(data, preferences);
-   console.log('gotback', games);
+   games = filterSingleGame(data, preferences);
   }
   return (
    <Fragment>
-    <h1>Today's scores</h1>
-    {/* {this.grabScores()} */}
-    {/* <SingleGameBoxScore /> */}
+    <h1> scores </h1>
+    <div>
+     <button
+      type="button"
+      value="-1"
+      onClick={() => this.handleDayChange(event)}
+     >
+      yesterday
+     </button>
+     <button
+      type="button"
+      value="1"
+      onClick={() => this.handleDayChange(event)}
+     >
+      tomorrow
+     </button>
+    </div>
+    <br />
+    {games.map(game => {
+     return (
+      <Fragment>
+       <div>
+        {game.team1.TEAM_ABBREVIATION}: {game.team1.PTS || 'tbd'}
+       </div>
+       <div>
+        {game.team2.TEAM_ABBREVIATION}:{game.team2.PTS || 'tbd'}
+       </div>
+       <br />
+      </Fragment>
+     );
+    })}
    </Fragment>
   );
  }
