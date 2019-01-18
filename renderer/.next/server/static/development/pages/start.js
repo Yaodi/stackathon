@@ -110,17 +110,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "react-dom");
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _utils_grabScores__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../utils/grabScores */ "./utils/grabScores.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -134,13 +127,15 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+/* eslint-disable react/jsx-key */
 
 
 
@@ -158,9 +153,40 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(root).call(this));
     _this.state = {
-      dayOffSet: 0
-    };
-    _this.grabScores = _this.grabScores.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+      dayOffSet: -1,
+      date: new Date().toLocaleDateString(),
+      headers: {
+        GAME_DATE_EST: false,
+        GAME_SEQUENCE: false,
+        GAME_ID: false,
+        TEAM_ID: false,
+        TEAM_ABBREVIATION: true,
+        TEAM_CITY_NAME: false,
+        TEAM_WINS_LOSSES: false,
+        PTS_QTR1: false,
+        PTS_QTR2: false,
+        PTS_QTR3: false,
+        PTS_QTR4: false,
+        PTS_OT1: false,
+        PTS_OT2: false,
+        PTS_OT3: false,
+        PTS_OT4: false,
+        PTS_OT5: false,
+        PTS_OT6: false,
+        PTS_OT7: false,
+        PTS_OT8: false,
+        PTS_OT9: false,
+        PTS_OT10: false,
+        PTS: true,
+        FG_PCT: false,
+        FT_PCT: false,
+        FG3_PCT: false,
+        AST: false,
+        REB: false,
+        TOV: false
+      }
+    }; //   this.grabScores = this.grabScores.bind(this);
+
     return _this;
   }
 
@@ -179,9 +205,9 @@ function (_Component) {
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8001/scoreboard', {
                   params: {
-                    GameDate: '01/16/2019',
+                    GameDate: this.state.date,
                     LeagueID: '00',
-                    DayOffset: '0'
+                    DayOffset: this.state.dayOffSet
                   }
                 });
 
@@ -205,25 +231,35 @@ function (_Component) {
       }
 
       return componentDidMount;
-    }()
-  }, {
-    key: "grabScores",
-    value: function grabScores() {
-      if (this.state.data) {
-        var _this$state$data$resu = this.state.data.resultSets.filter(function (thing) {
-          return thing.name === 'LineScore';
-        }),
-            _this$state$data$resu2 = _slicedToArray(_this$state$data$resu, 1),
-            lineScore = _this$state$data$resu2[0];
+    }() //  grabScores() {
+    //   if (this.state.data) {
+    //    let [lineScore] = this.state.data.resultSets.filter(
+    //     resultSet => resultSet.name === 'LineScore'
+    //    );
+    //    console.log('count', lineScore);
+    //    return lineScore.rowSet.map((game, idx) => {
+    //     return (
+    //      <h1>
+    //       {!(idx % 2) && idx !== 0 ? <p>-------------------</p> : null}
+    //       {game
+    //        .filter((none, index) => {
+    //         return this.state.headers[lineScore.headers[index]];
+    //        })
+    //        .map((field, j) => {
+    //         return (
+    //          <span>
+    //           {/* grabs corresponding header field */}
+    //           {/* {lineScore.headers.filter(el => this.state.headers[el])[j]} */}
+    //           {field}{' '}
+    //          </span>
+    //         );
+    //        })}
+    //      </h1>
+    //     );
+    //    });
+    //   }
+    //  }
 
-        console.log('count', lineScore);
-        return lineScore.rowSet.map(function (game, idx) {
-          return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, !(idx % 2) && idx !== 0 ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "break") : null, game.map(function (el) {
-            return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("span", null, el, " ");
-          }));
-        });
-      }
-    }
   }, {
     key: "render",
     value: function render() {
@@ -233,7 +269,7 @@ function (_Component) {
       //    );
       //    console.log('linescore', this.state.data);
       //   }
-      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "Today's scores"), this.grabScores());
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "Today's scores"), Object(_utils_grabScores__WEBPACK_IMPORTED_MODULE_4__["default"])());
     }
   }]);
 
@@ -241,6 +277,47 @@ function (_Component) {
 }(react__WEBPACK_IMPORTED_MODULE_2__["Component"]);
 
 /* harmony default export */ __webpack_exports__["default"] = (root);
+
+/***/ }),
+
+/***/ "./utils/grabScores.js":
+/*!*****************************!*\
+  !*** ./utils/grabScores.js ***!
+  \*****************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "default", function() { return grabScores; });
+function grabScores() {
+  console.log('this', this); //  if (this.state.data) {
+  //   let [lineScore] = this.state.data.resultSets.filter(
+  //    resultSet => resultSet.name === 'LineScore'
+  //   );
+  //   console.log('count', lineScore);
+  //   return lineScore.rowSet.map((game, idx) => {
+  //    return (
+  //     <h1>
+  //      {!(idx % 2) && idx !== 0 ? <p>-------------------</p> : null}
+  //      {game
+  //       .filter((none, index) => {
+  //        return this.state.headers[lineScore.headers[index]];
+  //       })
+  //       .map((field, j) => {
+  //        return (
+  //         <span>
+  //          {/* grabs corresponding header field */}
+  //          {/* {lineScore.headers.filter(el => this.state.headers[el])[j]} */}
+  //          {field}{' '}
+  //         </span>
+  //        );
+  //       })}
+  //     </h1>
+  //    );
+  //   });
+  //  }
+}
 
 /***/ }),
 
