@@ -1,17 +1,19 @@
 /* eslint-disable react/jsx-key */
 import Axios from 'axios';
 import React, { Component, Fragment } from 'react';
-import { render } from 'react-dom';
-import SingleGameBoxScore from './SingleGameBoxScore';
-import filterAllGames from '../utils/filterAllGames';
 import filterSingleGame from '../utils/filterSingleGame';
 
 class root extends Component {
  constructor() {
   super();
+  let staticDate = new Date();
+  staticDate = staticDate.toLocaleDateString();
+  let header = new Date();
+  header.setDate(header.getDate() - 1);
   this.state = {
    dayOffSet: -1,
-   date: new Date().toLocaleDateString(),
+   staticDate,
+   dateHeader: header.toLocaleDateString(),
    preferences: {
     GAME_DATE_EST: false,
     GAME_SEQUENCE: false,
@@ -48,7 +50,7 @@ class root extends Component {
  async componentDidMount() {
   let { data } = await Axios.get('http://localhost:8001/scoreboard', {
    params: {
-    GameDate: this.state.date,
+    GameDate: this.state.staticDate,
     LeagueID: '00',
     DayOffset: this.state.dayOffSet,
    },
@@ -59,16 +61,21 @@ class root extends Component {
   let change = parseInt(e.target.value, 10);
   let { data } = await Axios.get('http://localhost:8001/scoreboard', {
    params: {
-    GameDate: this.state.date,
+    GameDate: this.state.staticDate,
     LeagueID: '00',
     DayOffset: this.state.dayOffSet + change,
    },
   });
-  this.setState({ data, dayOffSet: this.state.dayOffSet + change });
+  let day = new Date();
+  day.setDate(day.getDate() + this.state.dayOffSet + change);
+  this.setState({
+   data,
+   dayOffSet: this.state.dayOffSet + change,
+   dateHeader: day.toLocaleDateString(),
+  });
  }
 
  render() {
-  //   console.log('day offset', this.state.dayOffSet);
   let games = [];
   if (this.state.data) {
    let data = this.state.data;
@@ -77,7 +84,7 @@ class root extends Component {
   }
   return (
    <Fragment>
-    <h1> scores </h1>
+    <h1> {this.state.dateHeader} </h1>
     <div>
      <button
       type="button"

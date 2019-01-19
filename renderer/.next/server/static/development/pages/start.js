@@ -175,9 +175,14 @@ function (_Component) {
     _classCallCheck(this, root);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(root).call(this));
+    var staticDate = new Date();
+    staticDate = staticDate.toLocaleDateString();
+    var header = new Date();
+    header.setDate(header.getDate() - 1);
     _this.state = {
       dayOffSet: -1,
-      date: new Date().toLocaleDateString(),
+      staticDate: staticDate,
+      dateHeader: header.toLocaleDateString(),
       preferences: {
         GAME_DATE_EST: false,
         GAME_SEQUENCE: false,
@@ -227,7 +232,7 @@ function (_Component) {
                 _context.next = 2;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8001/scoreboard', {
                   params: {
-                    GameDate: this.state.date,
+                    GameDate: this.state.staticDate,
                     LeagueID: '00',
                     DayOffset: this.state.dayOffSet
                   }
@@ -260,7 +265,7 @@ function (_Component) {
       var _handleDayChange = _asyncToGenerator(
       /*#__PURE__*/
       _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2(e) {
-        var change, _ref2, data;
+        var change, _ref2, data, day;
 
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
           while (1) {
@@ -270,7 +275,7 @@ function (_Component) {
                 _context2.next = 3;
                 return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('http://localhost:8001/scoreboard', {
                   params: {
-                    GameDate: this.state.date,
+                    GameDate: this.state.staticDate,
                     LeagueID: '00',
                     DayOffset: this.state.dayOffSet + change
                   }
@@ -279,12 +284,15 @@ function (_Component) {
               case 3:
                 _ref2 = _context2.sent;
                 data = _ref2.data;
+                day = new Date();
+                day.setDate(day.getDate() + this.state.dayOffSet + change);
                 this.setState({
                   data: data,
-                  dayOffSet: this.state.dayOffSet + change
+                  dayOffSet: this.state.dayOffSet + change,
+                  dateHeader: day.toLocaleDateString()
                 });
 
-              case 6:
+              case 8:
               case "end":
                 return _context2.stop();
             }
@@ -303,7 +311,6 @@ function (_Component) {
     value: function render() {
       var _this2 = this;
 
-      //   console.log('day offset', this.state.dayOffSet);
       var games = [];
 
       if (this.state.data) {
@@ -312,7 +319,7 @@ function (_Component) {
         games = Object(_utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_6__["default"])(data, preferences);
       }
 
-      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, " scores "), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+      return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, " ", this.state.dateHeader, " "), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
         type: "button",
         value: "-1",
         onClick: function onClick() {

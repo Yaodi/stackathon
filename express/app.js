@@ -21,7 +21,7 @@ app.get('/scoreboard', async (req, res, next) => {
  let { data } = await Axios.get('https://stats.nba.com/stats/scoreboard/', {
   params: req.query,
  });
- console.log('got here!@#');
+ console.log('got data back');
  res.json(data);
 });
 app.get('/', (req, res) => res.send('Hello World!'));
