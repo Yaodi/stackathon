@@ -291,13 +291,19 @@ function (_Component) {
       var _this2 = this;
 
       var games = [];
+      var eastStandings = {};
+      var westStandings = {};
 
       if (this.state.data) {
         var data = this.state.data;
         var preferences = this.state.preferences;
-        games = Object(_utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_3__["default"])(data, preferences);
+        var filtered = Object(_utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_3__["default"])(data, preferences);
+        games = filtered.games;
+        eastStandings = filtered.eastStandings;
+        westStandings = filtered.westStandings;
       }
 
+      console.log('e', eastStandings, 'w', westStandings);
       return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, " ", this.state.dateHeader, " "), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
         type: "button",
         value: "-1",
@@ -320,8 +326,7 @@ function (_Component) {
       }, "collapse"), Object.keys(this.state.preferences).map(function (pref) {
         if (pref !== 'TEAM_ABBREVIATION') {
           return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", {
-            type: "radio" //    value={this.state.preferences[pref]}
-            ,
+            type: "radio",
             checked: _this2.state.preferences[pref],
             onClick: function onClick() {
               _this2.setState(_objectSpread({}, _this2.state, {
@@ -337,22 +342,19 @@ function (_Component) {
             show: true
           });
         }
-      }, "preferences")), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null), games.map(function (game) {
+      }, "preferences")), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", {
+        cellSpacing: "15"
+      }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "Scores"), games.map(function (game) {
         return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, game.team1.TEAM_ABBREVIATION, " vs. ", game.team2.TEAM_ABBREVIATION, Object.keys(game.team1).map(function (header) {
           if (header !== 'TEAM_ABBREVIATION') {
             return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, header, ": ", game.team1[header], " ", game.team2[header]);
           }
         }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null));
-        /* //   <Fragment>
-        //    <div>
-        //     {game.team1.TEAM_ABBREVIATION}: {game.team1.PTS}
-        //    </div>
-        //    <div>
-        //     {game.team2.TEAM_ABBREVIATION}:{game.team2.PTS}
-        //    </div>
-        //    <br />
-        //   </Fragment> */
-      }));
+      })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "East Standings"), eastStandings.rowSet && eastStandings.rowSet.map(function (game) {
+        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, game[5], " ", '(', game[7], " - ", game[8], ')');
+      })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "West Standings"), westStandings.rowSet && westStandings.rowSet.map(function (game) {
+        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h4", null, game[5], " ", '(', game[7], " - ", game[8], ')');
+      }))));
     }
   }]);
 
@@ -388,6 +390,18 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
       _data$resultSets$filt2 = _slicedToArray(_data$resultSets$filt, 1),
       lineScore = _data$resultSets$filt2[0];
 
+  var _data$resultSets$filt3 = data.resultSets.filter(function (el) {
+    return el.name === 'EastConfStandingsByDay';
+  }),
+      _data$resultSets$filt4 = _slicedToArray(_data$resultSets$filt3, 1),
+      eastStandings = _data$resultSets$filt4[0];
+
+  var _data$resultSets$filt5 = data.resultSets.filter(function (el) {
+    return el.name === 'WestConfStandingsByDay';
+  }),
+      _data$resultSets$filt6 = _slicedToArray(_data$resultSets$filt5, 1),
+      westStandings = _data$resultSets$filt6[0];
+
   var list = [];
 
   for (var i = 0; i < lineScore.rowSet.length; i++) {
@@ -396,7 +410,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     for (var j = 0; j < lineScore.headers.length; j++) {
       var header = lineScore.headers[j];
       var field = lineScore.rowSet[i][j];
-      if (preferences[header]) _game[header] = field || 'tbd';
+      if (preferences[header]) _game[header] = field || 'n/a';
     }
 
     list.push(_game);
@@ -415,7 +429,12 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     }
   }
 
-  return games;
+  var filtered = {
+    games: games,
+    eastStandings: eastStandings,
+    westStandings: westStandings
+  };
+  return filtered;
 });
 
 /***/ }),

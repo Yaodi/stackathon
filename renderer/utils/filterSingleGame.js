@@ -2,13 +2,20 @@
 
 export default function(data, preferences) {
  let [lineScore] = data.resultSets.filter(el => el.name === 'LineScore');
+ let [eastStandings] = data.resultSets.filter(
+  el => el.name === 'EastConfStandingsByDay'
+ );
+ let [westStandings] = data.resultSets.filter(
+  el => el.name === 'WestConfStandingsByDay'
+ );
+
  let list = [];
  for (let i = 0; i < lineScore.rowSet.length; i++) {
   let game = {};
   for (let j = 0; j < lineScore.headers.length; j++) {
    let header = lineScore.headers[j];
    let field = lineScore.rowSet[i][j];
-   if (preferences[header]) game[header] = field || 'tbd';
+   if (preferences[header]) game[header] = field || 'n/a';
   }
   list.push(game);
  }
@@ -23,6 +30,6 @@ export default function(data, preferences) {
    game.team1 = list[i];
   }
  }
-
- return games;
+ let filtered = { games, eastStandings, westStandings };
+ return filtered;
 }

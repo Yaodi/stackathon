@@ -78,11 +78,17 @@ class root extends Component {
 
  render() {
   let games = [];
+  let eastStandings = {};
+  let westStandings = {};
   if (this.state.data) {
    let data = this.state.data;
    let preferences = this.state.preferences;
-   games = filterSingleGame(data, preferences);
+   let filtered = filterSingleGame(data, preferences);
+   games = filtered.games;
+   eastStandings = filtered.eastStandings;
+   westStandings = filtered.westStandings;
   }
+  console.log('e', eastStandings, 'w', westStandings);
   return (
    <Fragment>
     <h1> {this.state.dateHeader} </h1>
@@ -112,7 +118,6 @@ class root extends Component {
           <div>
            <input
             type="radio"
-            //    value={this.state.preferences[pref]}
             checked={this.state.preferences[pref]}
             onClick={() => {
              this.setState({
@@ -137,33 +142,52 @@ class root extends Component {
      )}
     </div>
     <br />
-    {games.map(game => {
-     return (
-      <div>
-       {game.team1.TEAM_ABBREVIATION} vs. {game.team2.TEAM_ABBREVIATION}
-       {Object.keys(game.team1).map(header => {
-        if (header !== 'TEAM_ABBREVIATION') {
-         return (
-          <div>
-           {header}: {game.team1[header]} {game.team2[header]}
-          </div>
-         );
-        }
-       })}
-       <br />
-      </div>
-     );
+    <table cellSpacing="15">
+     <td>
+      <h1>Scores</h1>
 
-     /* //   <Fragment>
-     //    <div>
-     //     {game.team1.TEAM_ABBREVIATION}: {game.team1.PTS}
-     //    </div>
-     //    <div>
-     //     {game.team2.TEAM_ABBREVIATION}:{game.team2.PTS}
-     //    </div>
-     //    <br />
-     //   </Fragment> */
-    })}
+      {games.map(game => {
+       return (
+        <div>
+         {game.team1.TEAM_ABBREVIATION} vs. {game.team2.TEAM_ABBREVIATION}
+         {Object.keys(game.team1).map(header => {
+          if (header !== 'TEAM_ABBREVIATION') {
+           return (
+            <div>
+             {header}: {game.team1[header]} {game.team2[header]}
+            </div>
+           );
+          }
+         })}
+         <br />
+        </div>
+       );
+      })}
+     </td>
+     <td>
+      <h1>East Standings</h1>
+
+      {eastStandings.rowSet &&
+       eastStandings.rowSet.map(game => (
+        <h4>
+         {game[5]} {'('}
+         {game[7]} - {game[8]}
+         {')'}
+        </h4>
+       ))}
+     </td>
+     <td>
+      <h1>West Standings</h1>
+      {westStandings.rowSet &&
+       westStandings.rowSet.map(game => (
+        <h4>
+         {game[5]} {'('}
+         {game[7]} - {game[8]}
+         {')'}
+        </h4>
+       ))}
+     </td>
+    </table>
    </Fragment>
   );
  }
