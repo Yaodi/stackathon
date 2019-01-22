@@ -2552,7 +2552,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/filterSingleGame */ "./utils/filterSingleGame.js");
+/* harmony import */ var _utils_filter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/filter */ "./utils/filter.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
@@ -2613,10 +2613,10 @@ function (_Component) {
         TEAM_ABBREVIATION: true,
         TEAM_CITY_NAME: false,
         TEAM_WINS_LOSSES: false,
-        PTS_QTR1: true,
-        PTS_QTR2: true,
-        PTS_QTR3: true,
-        PTS_QTR4: true,
+        PTS_QTR1: false,
+        PTS_QTR2: false,
+        PTS_QTR3: false,
+        PTS_QTR4: false,
         PTS_OT1: false,
         PTS_OT2: false,
         PTS_OT3: false,
@@ -2628,7 +2628,7 @@ function (_Component) {
         PTS_OT9: false,
         PTS_OT10: false,
         PTS: true,
-        FG_PCT: true,
+        FG_PCT: false,
         FT_PCT: false,
         FG3_PCT: false,
         AST: false,
@@ -2741,7 +2741,7 @@ function (_Component) {
       if (this.state.data) {
         var data = this.state.data;
         var preferences = this.state.preferences;
-        var filtered = Object(_utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_3__["default"])(data, preferences);
+        var filtered = Object(_utils_filter__WEBPACK_IMPORTED_MODULE_3__["default"])(data, preferences);
         games = filtered.games;
         eastStandings = filtered.eastStandings;
         westStandings = filtered.westStandings;
@@ -2787,11 +2787,17 @@ function (_Component) {
           });
         }
       }, "preferences")), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("table", {
-        cellSpacing: "15"
+        cellPadding: "10"
       }, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "Scores"), games.map(function (game) {
-        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, game.team1.TEAM_ABBREVIATION, " vs. ", game.team2.TEAM_ABBREVIATION, Object.keys(game.team1).map(function (header) {
+        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h3", null, game.team1.TEAM_ABBREVIATION, " vs. ", game.team2.TEAM_ABBREVIATION), Object.keys(game.team1).map(function (header) {
           if (header !== 'TEAM_ABBREVIATION') {
-            return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, header, ": ", game.team1[header], " ", game.team2[header]);
+            return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("tr", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", {
+              className: "field"
+            }, header, ":"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", {
+              className: "team1"
+            }, game.team1[header]), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", {
+              className: "team2"
+            }, game.team2[header])));
           }
         }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null));
       })), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("td", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, "East Standings"), eastStandings.rowSet && eastStandings.rowSet.map(function (game) {
@@ -2828,10 +2834,10 @@ function (_Component) {
 
 /***/ }),
 
-/***/ "./utils/filterSingleGame.js":
-/*!***********************************!*\
-  !*** ./utils/filterSingleGame.js ***!
-  \***********************************/
+/***/ "./utils/filter.js":
+/*!*************************!*\
+  !*** ./utils/filter.js ***!
+  \*************************/
 /*! exports provided: default */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 

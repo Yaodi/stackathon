@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-key */
 import Axios from 'axios';
 import React, { Component, Fragment } from 'react';
-import filterSingleGame from '../utils/filterSingleGame';
+import filterSingleGame from '../utils/filter';
 
 class root extends Component {
  constructor() {
@@ -22,10 +22,10 @@ class root extends Component {
     TEAM_ABBREVIATION: true,
     TEAM_CITY_NAME: false,
     TEAM_WINS_LOSSES: false,
-    PTS_QTR1: true,
-    PTS_QTR2: true,
-    PTS_QTR3: true,
-    PTS_QTR4: true,
+    PTS_QTR1: false,
+    PTS_QTR2: false,
+    PTS_QTR3: false,
+    PTS_QTR4: false,
     PTS_OT1: false,
     PTS_OT2: false,
     PTS_OT3: false,
@@ -37,7 +37,7 @@ class root extends Component {
     PTS_OT9: false,
     PTS_OT10: false,
     PTS: true,
-    FG_PCT: true,
+    FG_PCT: false,
     FT_PCT: false,
     FG3_PCT: false,
     AST: false,
@@ -142,19 +142,26 @@ class root extends Component {
      )}
     </div>
     <br />
-    <table cellSpacing="15">
+    <table cellPadding="10">
      <td>
       <h1>Scores</h1>
 
       {games.map(game => {
        return (
         <div>
-         {game.team1.TEAM_ABBREVIATION} vs. {game.team2.TEAM_ABBREVIATION}
+         <h3>
+          {game.team1.TEAM_ABBREVIATION} vs. {game.team2.TEAM_ABBREVIATION}
+         </h3>
+
          {Object.keys(game.team1).map(header => {
           if (header !== 'TEAM_ABBREVIATION') {
            return (
             <div>
-             {header}: {game.team1[header]} {game.team2[header]}
+             <tr>
+              <td className="field">{header}:</td>
+              <td className="team1">{game.team1[header]}</td>
+              <td className="team2">{game.team2[header]}</td>
+             </tr>
             </div>
            );
           }
