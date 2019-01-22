@@ -8,7 +8,7 @@ export default function(data, preferences) {
   for (let j = 0; j < lineScore.headers.length; j++) {
    let header = lineScore.headers[j];
    let field = lineScore.rowSet[i][j];
-   if (preferences[header]) game[header] = field;
+   if (preferences[header]) game[header] = field || 'tbd';
   }
   list.push(game);
  }

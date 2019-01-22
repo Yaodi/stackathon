@@ -1711,17 +1711,6 @@ function isSlowBuffer (obj) {
 
 /***/ }),
 
-/***/ "../node_modules/react-dom/index.js":
-/*!************************************************************************************************!*\
-  !*** delegated ../node_modules/react-dom/index.js from dll-reference dll_08fa50bc85c03b576e51 ***!
-  \************************************************************************************************/
-/*! no static exports found */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = (__webpack_require__(/*! dll-reference dll_08fa50bc85c03b576e51 */ "dll-reference dll_08fa50bc85c03b576e51"))("../node_modules/react-dom/index.js");
-
-/***/ }),
-
 /***/ "../node_modules/react/index.js":
 /*!********************************************************************************************!*\
   !*** delegated ../node_modules/react/index.js from dll-reference dll_08fa50bc85c03b576e51 ***!
@@ -2548,44 +2537,6 @@ module.exports = function(originalModule) {
 
 /***/ }),
 
-/***/ "./pages/SingleGameBoxScore.js":
-/*!*************************************!*\
-  !*** ./pages/SingleGameBoxScore.js ***!
-  \*************************************/
-/*! no exports provided */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* WEBPACK VAR INJECTION */(function(module) {/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-
-
-var SingleGameBoxScore = function SingleGameBoxScore() {
-  return react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement("h1", null, "an h1");
-};
-    (function (Component, route) {
-      if(!Component) return
-      if (false) {}
-      module.hot.accept()
-      Component.__route = route
-
-      if (module.hot.status() === 'idle') return
-
-      var components = next.router.components
-      for (var r in components) {
-        if (!components.hasOwnProperty(r)) continue
-
-        if (components[r].Component.__route === route) {
-          next.router.update(r, Component)
-        }
-      }
-    })(typeof __webpack_exports__ !== 'undefined' ? __webpack_exports__.default : (module.exports.default || module.exports), "/SingleGameBoxScore")
-  
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/harmony-module.js */ "../node_modules/webpack/buildin/harmony-module.js")(module)))
-
-/***/ }),
-
 /***/ "./pages/start.js":
 /*!************************!*\
   !*** ./pages/start.js ***!
@@ -2601,14 +2552,14 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react */ "../node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dom */ "../node_modules/react-dom/index.js");
-/* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(react_dom__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _SingleGameBoxScore__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./SingleGameBoxScore */ "./pages/SingleGameBoxScore.js");
-/* harmony import */ var _utils_filterAllGames__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../utils/filterAllGames */ "./utils/filterAllGames.js");
-/* harmony import */ var _utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils/filterSingleGame */ "./utils/filterSingleGame.js");
+/* harmony import */ var _utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../utils/filterSingleGame */ "./utils/filterSingleGame.js");
 
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
 
@@ -2631,9 +2582,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 /* eslint-disable react/jsx-key */
-
-
-
 
 
 
@@ -2665,10 +2613,10 @@ function (_Component) {
         TEAM_ABBREVIATION: true,
         TEAM_CITY_NAME: false,
         TEAM_WINS_LOSSES: false,
-        PTS_QTR1: false,
-        PTS_QTR2: false,
-        PTS_QTR3: false,
-        PTS_QTR4: false,
+        PTS_QTR1: true,
+        PTS_QTR2: true,
+        PTS_QTR3: true,
+        PTS_QTR4: true,
         PTS_OT1: false,
         PTS_OT2: false,
         PTS_OT3: false,
@@ -2680,13 +2628,14 @@ function (_Component) {
         PTS_OT9: false,
         PTS_OT10: false,
         PTS: true,
-        FG_PCT: false,
+        FG_PCT: true,
         FT_PCT: false,
         FG3_PCT: false,
         AST: false,
         REB: false,
         TOV: false
-      }
+      },
+      show: false
     };
     return _this;
   }
@@ -2790,7 +2739,7 @@ function (_Component) {
       if (this.state.data) {
         var data = this.state.data;
         var preferences = this.state.preferences;
-        games = Object(_utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_6__["default"])(data, preferences);
+        games = Object(_utils_filterSingleGame__WEBPACK_IMPORTED_MODULE_3__["default"])(data, preferences);
       }
 
       return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("h1", null, " ", this.state.dateHeader, " "), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
@@ -2799,14 +2748,54 @@ function (_Component) {
         onClick: function onClick() {
           return _this2.handleDayChange(event);
         }
-      }, "yesterday"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+      }, "prev"), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
         type: "button",
         value: "1",
         onClick: function onClick() {
           return _this2.handleDayChange(event);
         }
-      }, "tomorrow")), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null), games.map(function (game) {
-        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, game.team1.TEAM_ABBREVIATION, ": ", game.team1.PTS || 'tbd'), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, game.team2.TEAM_ABBREVIATION, ":", game.team2.PTS || 'tbd'), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null));
+      }, "next"), this.state.show ? react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement(react__WEBPACK_IMPORTED_MODULE_2__["Fragment"], null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+        type: "button",
+        onClick: function onClick() {
+          return _this2.setState({
+            show: false
+          });
+        }
+      }, "collapse"), Object.keys(this.state.preferences).map(function (pref) {
+        if (pref !== 'TEAM_ABBREVIATION') {
+          return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("input", {
+            type: "radio" //    value={this.state.preferences[pref]}
+            ,
+            checked: _this2.state.preferences[pref],
+            onClick: function onClick() {
+              _this2.setState(_objectSpread({}, _this2.state, {
+                preferences: _objectSpread({}, _this2.state.preferences, _defineProperty({}, pref, !_this2.state.preferences[pref]))
+              }));
+            }
+          }), ' ', pref);
+        }
+      })) : react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("button", {
+        type: "button",
+        onClick: function onClick() {
+          return _this2.setState({
+            show: true
+          });
+        }
+      }, "preferences")), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null), games.map(function (game) {
+        return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, game.team1.TEAM_ABBREVIATION, " vs. ", game.team2.TEAM_ABBREVIATION, Object.keys(game.team1).map(function (header) {
+          if (header !== 'TEAM_ABBREVIATION') {
+            return react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("div", null, header, ": ", game.team1[header], " ", game.team2[header]);
+          }
+        }), react__WEBPACK_IMPORTED_MODULE_2___default.a.createElement("br", null));
+        /* //   <Fragment>
+        //    <div>
+        //     {game.team1.TEAM_ABBREVIATION}: {game.team1.PTS}
+        //    </div>
+        //    <div>
+        //     {game.team2.TEAM_ABBREVIATION}:{game.team2.PTS}
+        //    </div>
+        //    <br />
+        //   </Fragment> */
       }));
     }
   }]);
@@ -2834,63 +2823,6 @@ function (_Component) {
     })(typeof __webpack_exports__ !== 'undefined' ? __webpack_exports__.default : (module.exports.default || module.exports), "/start")
   
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/webpack/buildin/harmony-module.js */ "../node_modules/webpack/buildin/harmony-module.js")(module)))
-
-/***/ }),
-
-/***/ "./utils/filterAllGames.js":
-/*!*********************************!*\
-  !*** ./utils/filterAllGames.js ***!
-  \*********************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _nonIterableRest(); }
-
-function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance"); }
-
-function _iterableToArrayLimit(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
-
-function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-//this utility function takes in scores data, returning an array of games w/ team abbreviation and final score for the all games page
-/* harmony default export */ __webpack_exports__["default"] = (function (data) {
-  var _data$resultSets$filt = data.resultSets.filter(function (el) {
-    return el.name === 'LineScore';
-  }),
-      _data$resultSets$filt2 = _slicedToArray(_data$resultSets$filt, 1),
-      lineScore = _data$resultSets$filt2[0];
-
-  var list = [];
-
-  for (var i = 0; i < lineScore.rowSet.length; i++) {
-    var _game = {};
-
-    for (var j = 0; j < lineScore.headers.length; j++) {
-      var header = lineScore.headers[j];
-      var field = lineScore.rowSet[i][j];
-      if (header === 'TEAM_ABBREVIATION' || header === 'PTS') _game[header] = field;
-    }
-
-    list.push(_game);
-  }
-
-  var games = [];
-  var game = {};
-
-  for (var _i2 = 0; _i2 < list.length; _i2++) {
-    if (_i2 % 2) {
-      game.team2 = list[_i2];
-      games.push(game);
-      game = {};
-    } else {
-      game.team1 = list[_i2];
-    }
-  }
-
-  return games;
-});
 
 /***/ }),
 
@@ -2927,7 +2859,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
     for (var j = 0; j < lineScore.headers.length; j++) {
       var header = lineScore.headers[j];
       var field = lineScore.rowSet[i][j];
-      if (preferences[header]) _game[header] = field;
+      if (preferences[header]) _game[header] = field || 'tbd';
     }
 
     list.push(_game);

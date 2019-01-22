@@ -22,10 +22,10 @@ class root extends Component {
     TEAM_ABBREVIATION: true,
     TEAM_CITY_NAME: false,
     TEAM_WINS_LOSSES: false,
-    PTS_QTR1: false,
-    PTS_QTR2: false,
-    PTS_QTR3: false,
-    PTS_QTR4: false,
+    PTS_QTR1: true,
+    PTS_QTR2: true,
+    PTS_QTR3: true,
+    PTS_QTR4: true,
     PTS_OT1: false,
     PTS_OT2: false,
     PTS_OT3: false,
@@ -37,13 +37,14 @@ class root extends Component {
     PTS_OT9: false,
     PTS_OT10: false,
     PTS: true,
-    FG_PCT: false,
+    FG_PCT: true,
     FT_PCT: false,
     FG3_PCT: false,
     AST: false,
     REB: false,
     TOV: false,
    },
+   show: false,
   };
  }
 
@@ -91,29 +92,77 @@ class root extends Component {
       value="-1"
       onClick={() => this.handleDayChange(event)}
      >
-      yesterday
+      prev
      </button>
      <button
       type="button"
       value="1"
       onClick={() => this.handleDayChange(event)}
      >
-      tomorrow
+      next
      </button>
+     {this.state.show ? (
+      <Fragment>
+       <button type="button" onClick={() => this.setState({ show: false })}>
+        collapse
+       </button>
+       {Object.keys(this.state.preferences).map(pref => {
+        if (pref !== 'TEAM_ABBREVIATION') {
+         return (
+          <div>
+           <input
+            type="radio"
+            //    value={this.state.preferences[pref]}
+            checked={this.state.preferences[pref]}
+            onClick={() => {
+             this.setState({
+              ...this.state,
+              preferences: {
+               ...this.state.preferences,
+               [pref]: !this.state.preferences[pref],
+              },
+             });
+            }}
+           />{' '}
+           {pref}
+          </div>
+         );
+        }
+       })}
+      </Fragment>
+     ) : (
+      <button type="button" onClick={() => this.setState({ show: true })}>
+       preferences
+      </button>
+     )}
     </div>
     <br />
     {games.map(game => {
      return (
-      <Fragment>
-       <div>
-        {game.team1.TEAM_ABBREVIATION}: {game.team1.PTS || 'tbd'}
-       </div>
-       <div>
-        {game.team2.TEAM_ABBREVIATION}:{game.team2.PTS || 'tbd'}
-       </div>
+      <div>
+       {game.team1.TEAM_ABBREVIATION} vs. {game.team2.TEAM_ABBREVIATION}
+       {Object.keys(game.team1).map(header => {
+        if (header !== 'TEAM_ABBREVIATION') {
+         return (
+          <div>
+           {header}: {game.team1[header]} {game.team2[header]}
+          </div>
+         );
+        }
+       })}
        <br />
-      </Fragment>
+      </div>
      );
+
+     /* //   <Fragment>
+     //    <div>
+     //     {game.team1.TEAM_ABBREVIATION}: {game.team1.PTS}
+     //    </div>
+     //    <div>
+     //     {game.team2.TEAM_ABBREVIATION}:{game.team2.PTS}
+     //    </div>
+     //    <br />
+     //   </Fragment> */
     })}
    </Fragment>
   );
